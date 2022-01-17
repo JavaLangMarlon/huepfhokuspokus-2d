@@ -1,0 +1,46 @@
+GUI extends JFrame
++ GUI()
+----
++ currentScene
+----
++ start(): void  // TODO get this into a proper thread
+
+
+Scene
++ Scene(f: Frame)
+----
++ sceneObjects: ArrayList<SceneObjects>
++ background: GameImage
+----
++ draw(Graphics2d)
++ addSceneObject(sceneObject: SceneObject)
++ removeSceneObject(sceneObject: SceneObject)
+
+
+SceneObject
++ visible: Boolean
++ x: Double
++ y: Double
++ z: Double
++ width: Double
++ height: Double
++ image: GameImage
+
+
+SceneImage
++ SceneImage(c: Color)
++ SceneImage(imagePath: String)
+----
+
+
+GameObject extends SceneObject
++ INFINITY = -1.0
++ gameX: Double
++ gameY: Double
++ game: Double  // < 0 means that the object theoretically is infinite
+
+
+GameScene extends Scene
++ gameX: Double
++ gameY: Double  // y-axis is inverted
+----
