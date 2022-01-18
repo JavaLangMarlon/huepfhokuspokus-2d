@@ -18,8 +18,10 @@ class GUI(
     var currentScene: Scene? = null
         set(value) {
             field?.deactivate()
+            this.frame.removeKeyListener(field)  // TODO what about null
             value?.gui = this
             field = value
+            this.frame.addKeyListener(field)
             field?.activate()
         }
 

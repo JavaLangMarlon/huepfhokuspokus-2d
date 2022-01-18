@@ -2,14 +2,15 @@ package gui
 
 import java.awt.Graphics2D
 
-abstract class SceneObject(
+open class SceneObject(
     var x: Double,
     var y: Double,
     z: Double,
     var width: Double,
-    var height: Double
+    var height: Double,
+    var graphicalObject: GraphicalObject
 ) {
-    var parentScene: Scene? = null
+    open var parentScene: Scene? = null
 
     var z = z
         set(value) {
@@ -20,5 +21,7 @@ abstract class SceneObject(
         }
     var visible = true
 
-    abstract fun draw(graphics2D: Graphics2D)
+    fun draw(graphics2D: Graphics2D) {
+        this.graphicalObject.draw(this.x, this.y, this.width, this.height, graphics2D)
+    }
 }

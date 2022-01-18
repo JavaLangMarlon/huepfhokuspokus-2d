@@ -1,16 +1,16 @@
 package gui
 
 import java.awt.Graphics2D
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 
-abstract class Scene {
-    private var sceneObjects: ArrayList<SceneObject> = ArrayList() // always sorted by z-index
+abstract class Scene : KeyListener {
+    protected var sceneObjects: ArrayList<SceneObject> = ArrayList() // always sorted by z-index
     var backgroundImage: SceneObject? = null
-    var gui: GUI? = null
+    open var gui: GUI? = null
         set(value) {
             field = value
-            print("z")
             if (value != null) {
-                print("b")
                 this.backgroundImage?.width = value.width.toDouble()
                 this.backgroundImage?.height = value.height.toDouble()
             }
@@ -24,19 +24,24 @@ abstract class Scene {
         }
     }
 
-    abstract fun run()
+    open fun run() {}
 
     fun activate() {}
     fun deactivate() {}
 
     fun addSceneObject(sceneObject: SceneObject) {
         var insertIndex = 0
-        for (i in this.sceneObjects.indices)
-            if (this.sceneObjects[i].z == sceneObject.z) {
-                insertIndex = i
-                sceneObject.parentScene = this
-                break
-            }
+        if (this.sceneObjects.isNotEmpty()) {
+            insertIndex = -1
+            for (i in this.sceneObjects.indices)
+                if (this.sceneObjects[i].z == sceneObject.z) {
+                    insertIndex = i
+                    break
+                }
+            if (insertIndex == -1)
+                insertIndex = this.sceneObjects.size
+        }
+        sceneObject.parentScene = this
         this.sceneObjects.add(insertIndex, sceneObject)
     }
 
@@ -46,5 +51,17 @@ abstract class Scene {
             throw IllegalArgumentException("Object $sceneObject was not in the list")
         else
             sceneObject.parentScene = null
+    }
+
+    override fun keyTyped(e: KeyEvent?) {
+        // this can be overridden way down
+    }
+
+    override fun keyPressed(e: KeyEvent?) {
+        // this can be overridden way down
+    }
+
+    override fun keyReleased(e: KeyEvent?) {
+        // this can be overridden way down
     }
 }
