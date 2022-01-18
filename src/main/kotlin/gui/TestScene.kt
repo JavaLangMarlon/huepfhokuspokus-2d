@@ -1,15 +1,16 @@
 package gui
 
 import java.awt.Color
-import java.awt.Graphics2D
 
 class TestScene : Scene() {
     init {
-        var a = ColorSceneObject(Color(255, 255, 0))
+        this.backgroundImage = ColorSceneObject(0.0, 0.0, 0.0, 0.0, 0.0, Color(100, 150, 255))
+        var a = ColorSceneObject(0.0, 0.0, 0.0, 100.0, 100.0, Color(255, 255, 0))
+
+        this.addSceneObject(a)
     }
 
     override fun run() {
-        TODO("Not yet implemented")
     }
 
 

@@ -14,6 +14,6 @@ class ColorSceneObject(
 
     override fun draw(graphics2D: Graphics2D) {
         graphics2D.color = this.color
-        graphics2D.drawRect(this.x.toInt(), this.y.toInt(), this.width.toInt(), this.height.toInt())
+        graphics2D.fillRect(this.x.toInt(), this.y.toInt(), this.width.toInt(), this.height.toInt())
     }
 }

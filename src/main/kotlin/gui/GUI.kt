@@ -15,9 +15,10 @@ class GUI(
 ) : JPanel() {
     private val frame: JFrame = JFrame(this.frameTitle)
 
-    private var currentScene: Scene? = null
+    var currentScene: Scene? = null
         set(value) {
             field?.deactivate()
+            value?.gui = this
             field = value
             field?.activate()
         }
@@ -25,6 +26,7 @@ class GUI(
     init {
         this.size = Dimension(this.frameWidth, this.frameHeight)
         this.frame.size = this.size
+        this.frame.add(this)
     }
 
     fun start() {
@@ -34,14 +36,15 @@ class GUI(
         val timer = Timer(50) {
             this.repaint()
         }
+
         timer.start()
     }
 
     override fun paintComponent(g: Graphics?) {
         super.paintComponent(g)
 
-        if (g is Graphics2D && this.currentScene != null) {
-            this.currentScene!!.draw(g)
+        if (g is Graphics2D) {
+            this.currentScene?.draw(g)
         }
     }
 }

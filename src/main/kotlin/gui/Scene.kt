@@ -4,7 +4,17 @@ import java.awt.Graphics2D
 
 abstract class Scene {
     private var sceneObjects: ArrayList<SceneObject> = ArrayList() // always sorted by z-index
-    private var backgroundImage: SceneObject? = null
+    var backgroundImage: SceneObject? = null
+    var gui: GUI? = null
+        set(value) {
+            field = value
+            print("z")
+            if (value != null) {
+                print("b")
+                this.backgroundImage?.width = value.width.toDouble()
+                this.backgroundImage?.height = value.height.toDouble()
+            }
+        }
 
     fun draw(g2d: Graphics2D){
         this.run()
@@ -20,12 +30,14 @@ abstract class Scene {
     fun deactivate() {}
 
     fun addSceneObject(sceneObject: SceneObject) {
+        var insertIndex = 0
         for (i in this.sceneObjects.indices)
             if (this.sceneObjects[i].z == sceneObject.z) {
-                this.sceneObjects.add(i, sceneObject)
+                insertIndex = i
                 sceneObject.parentScene = this
                 break
             }
+        this.sceneObjects.add(insertIndex, sceneObject)
     }
 
     @Throws(IllegalArgumentException::class)
