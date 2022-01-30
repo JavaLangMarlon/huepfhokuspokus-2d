@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 
 abstract class Scene : KeyListener {
-    protected var sceneObjects: ArrayList<SceneObject> = ArrayList() // always sorted by z-index
+    var sceneObjects: ArrayList<SceneObject> = ArrayList() // always sorted by z-index
     var backgroundImage: SceneObject? = null
     open var gui: GUI? = null
         set(value) {
@@ -20,7 +20,8 @@ abstract class Scene : KeyListener {
         this.run()
         this.backgroundImage?.draw(g2d)
         this.sceneObjects.forEach {
-            it.draw(g2d)
+            if (it.visible)
+                it.draw(g2d)
         }
     }
 

@@ -12,6 +12,8 @@ class GUI(
     val frameTitle: String,
     val frameWidth: Int,
     val frameHeight: Int,
+
+    var framesPerSecond: Int
 ) : JPanel() {
     private val frame: JFrame = JFrame(this.frameTitle)
 
@@ -35,7 +37,7 @@ class GUI(
         this.frame.isVisible = true
         this.isVisible = true
 
-        val timer = Timer(50) {
+        val timer = Timer(1000/this.framesPerSecond) {
             this.repaint()
         }
 
