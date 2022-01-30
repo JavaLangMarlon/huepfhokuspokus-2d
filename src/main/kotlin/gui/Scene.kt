@@ -27,8 +27,8 @@ abstract class Scene : KeyListener {
 
     open fun run() {}
 
-    fun activate() {}
-    fun deactivate() {}
+    open fun activate() {}
+    open fun deactivate() {}
 
     fun addSceneObject(sceneObject: SceneObject) {
         var insertIndex = 0
